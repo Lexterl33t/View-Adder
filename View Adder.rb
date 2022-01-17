@@ -1,5 +1,14 @@
 require'colorize'
 require 'open-uri'
+require 'os'
+
+def clear()
+    if os.windows?
+        system("cls")
+    else
+        system("clear")
+    end
+end
 
 def name = <<-'EOF'
            _                   _       _     _           
@@ -11,26 +20,17 @@ def name = <<-'EOF'
    EOF
 puts "#{name}".blue
 
-puts("\nVeuillez choisir votre Option (100 ou 1000) :")
-scar = "\n[+] ".red
-print(scar)
-ok = gets.chomp
-system("cls")
+print("\nVeuillez choisir le nombre de vues que vous voulez: ")
+ok = gets.chomp.to_i
+clear()
+
 puts "#{name}".blue
-puts "\nMetter votre compte Github :\n"
-scar = "\n[+] ".red
-print(scar)
+print "\nMetter votre compte Github :\n"
 raph = gets.chomp
-if ok == 100
-    (1..100).each do 
-        system("curl https://camo.githubusercontent.com/#{raph}")
-        system("cls")
-    end
-else ok == 1000
-    (1..1000).each do 
-        system("curl https://camo.githubusercontent.com/#{raph}")
-        system("cls")
-    end
+           
+(1..ok).each do |i| 
+      puts "#{i} views added\r"
+      req = open("https://camo.githubusercontent.com/#{raph}").read
 end
 puts "#{name}".blue
 puts"\nVous avez eu +#{ok} views !"
