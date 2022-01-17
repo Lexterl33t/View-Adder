@@ -1,5 +1,15 @@
 require'colorize'
-require 'open-uri'
+require 'net/http'
+require 'uri'
+require 'os'
+
+def clear()
+    if OS.windows?
+        system("cls")
+    else
+        system("clear")
+    end
+end
 
 def name = <<-'EOF'
            _                   _       _     _           
@@ -13,15 +23,16 @@ puts "#{name}".blue
 
 print("\nVeuillez choisir le nombre de vues que vous voulez: ")
 ok = gets.chomp.to_i
-system("cls")
+clear()
+
 puts "#{name}".blue
 print "\nMetter votre compte Github :\n"
-print(scar)
 raph = gets.chomp
            
 (1..ok).each do |i| 
-      puts "#{i} views added\r"
-      req = open("https://camo.githubusercontent.com/#{raph}").read
+      req = Net::HTTP.get(URI("https://camo.githubusercontent.com/#{raph}"))
+      print "#{i} views added\r"
+
 end
 puts "#{name}".blue
 puts"\nVous avez eu +#{ok} views !"
